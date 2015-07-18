@@ -1,0 +1,8 @@
+[package]
+
+name = "rust_collection_examples"
+version = "0.0.1"
+authors = ["Markus Jais <markus.jais@yahoo.de>"]
+
+[dependencies]
+nix = "0.3.9"
