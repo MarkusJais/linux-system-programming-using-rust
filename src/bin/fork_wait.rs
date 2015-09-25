@@ -11,13 +11,12 @@ fn main() {
     let pid = fork();
     match pid {
         Ok(Child) => {
-            println!("in child process. I have pid: {}", getpid());
-            println!("my parent process has pid: {}", getppid());
+            println!("in child process with pid: {} and parent pid:{}", getpid(), getppid());
         } // ignore child here
 
         Ok(Parent(child_pid)) => {
 
-            println!("my child process has pid: {}", child_pid);
+            println!("in parent process with pid: {} and child pid:{}", getpid(), child_pid);
 
             let wait_status = waitpid(child_pid, None);
             match wait_status {
