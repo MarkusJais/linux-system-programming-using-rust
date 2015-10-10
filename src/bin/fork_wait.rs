@@ -3,7 +3,7 @@ extern crate nix;
 use nix::unistd::{fork, getpid, getppid};
 use nix::unistd::Fork::{Parent, Child};
 use nix::sys::wait::waitpid;
-use nix::sys::wait::WaitStatus::Exited;
+use nix::sys::wait::WaitStatus; //::Exited;
 
 
 
@@ -20,9 +20,8 @@ fn main() {
 
             let wait_status = waitpid(child_pid, None);
             match wait_status {
-                // assert that waitpid returned correct status and the pid is the one of the child
-                Ok(Exited(pid)) =>  {
-                    println!("child process with pid {} has successfull exited", pid);
+                 Ok(WaitStatus::Exited(pid, status)) =>  {
+                    println!("child process with pid {} has successfull exited with status: {}", pid, status);
                 },
 
                 // panic, must never happen
