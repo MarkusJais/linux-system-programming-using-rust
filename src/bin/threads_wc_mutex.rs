@@ -27,6 +27,6 @@ fn main() {
     for thread in threads {
         let _ = thread.join();
     }
-    println!("counts:\n{:?}", counts);
+    println!("counts:\n{:?}", *counts.lock().unwrap());
     println!("\ndone!\n");
 }
