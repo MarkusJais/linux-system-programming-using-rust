@@ -1,7 +1,6 @@
 use std::thread;
 use std::sync::Arc;
-// Broken! An example to show how it does NOT work correctly.
-// Don't use this code!!!!!
+
 fn main() {
 
     let strings = vec![
@@ -23,7 +22,7 @@ fn main() {
     }
 
     for thread in threads {
-        let res = thread.join();
+        let _ = thread.join();
     }
 
     println!("\ndone!\n");
