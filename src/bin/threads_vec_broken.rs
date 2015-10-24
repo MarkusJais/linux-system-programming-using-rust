@@ -13,7 +13,7 @@ fn main() {
 
     for i in 0..strings.len() {
         threads.push(thread::spawn(move || {
-            println!("{:?}", strings);  // doesn't compile: capture of moved value: `strings`
+            println!("{:?}", strings[i]);  // doesn't compile: capture of moved value: `strings`
         }));
     }
 
