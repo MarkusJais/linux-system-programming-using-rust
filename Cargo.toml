@@ -1,6 +1,6 @@
 [package]
 
-name = "rust_collection_examples"
+name = "linux_system_programming_using_rust"
 version = "0.0.1"
 authors = ["Markus Jais <markus.jais@yahoo.de>"]
 
