@@ -1,6 +1,6 @@
 extern crate nix;
 
-use nix::unistd::{fork, getpid, getppid, execvp};
+use nix::unistd::{fork, getpid, execvp};
 use nix::unistd::Fork::{Parent, Child};
 use nix::sys::wait::waitpid;
 use nix::sys::wait::WaitStatus;
