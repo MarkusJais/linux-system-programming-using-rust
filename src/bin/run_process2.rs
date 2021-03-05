@@ -4,7 +4,7 @@ use std::process::Command;
 // running other program as a child
 // shorter version than run_process1 avoiding pattern matching
 fn main() {
-    let mut child_process = Command::new("/bin/catss")
+    let mut child_process = Command::new("/bin/cat")
                             .arg("/tmp/file.txt")
                             .spawn()
                             .unwrap_or_else(|error| { panic!("error executing child: {}", error) });

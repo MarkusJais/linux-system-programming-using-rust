@@ -1,18 +1,16 @@
 extern crate nix;
 
-use nix::unistd::{fork, getpid, getppid};
-use nix::unistd::Fork::{Parent, Child};
-
-
+use nix::unistd::{getpid, getppid};
+use nix::unistd::{fork, ForkResult};
 
 fn main() {
-    let pid = fork();
+    let pid = unsafe { fork() };
     match pid {
-        Ok(Child) => {
+        Ok(ForkResult::Child) => {
             println!("in child process with pid: {} and parent pid:{}", getpid(), getppid());
         }
-        Ok(Parent(child_pid)) => {
-            println!("in parent process with pid: {} and child pid:{}", getpid(), child_pid);
+        Ok(ForkResult::Parent { child, .. }) => {
+            println!("in parent process with pid: {} and child pid:{}", getpid(), child);
         }
         // panic, fork should never fail unless there is a serious problem with the OS
         Err(_) => panic!("Error: Fork Failed")

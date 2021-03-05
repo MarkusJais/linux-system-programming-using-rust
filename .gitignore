@@ -2,3 +2,5 @@ Cargo.lock
 target/
 *.sw*
 *.a
+.idea
+*.iml

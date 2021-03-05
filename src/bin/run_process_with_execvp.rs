@@ -1,17 +1,15 @@
 extern crate nix;
 
-use nix::unistd::{fork, getpid, getppid, execvp};
-use nix::unistd::Fork::{Parent, Child};
-use nix::sys::wait::waitpid;
-use nix::sys::wait::WaitStatus;
 use std::ffi::CString;
 
-
+use nix::sys::wait::waitpid;
+use nix::sys::wait::WaitStatus;
+use nix::unistd::{execvp, fork, ForkResult, getpid};
 
 fn main() {
-    let pid = fork();
+    let pid = unsafe { fork() };
     match pid {
-        Ok(Child) => {
+        Ok(ForkResult::Child) => {
             let command =  &CString::new("/bin/cat").unwrap();
             let arguments =
                     &[
@@ -21,11 +19,11 @@ fn main() {
                     ];
             execvp(command, arguments).unwrap();
         }
-        Ok(Parent(child_pid)) => {
+        Ok(ForkResult::Parent {child}) => {
 
-            println!("in parent process with pid: {} and child pid:{}", getpid(), child_pid);
+            println!("in parent process with pid: {} and child pid:{}", getpid(), child);
 
-            let wait_status = waitpid(child_pid, None);
+            let wait_status = waitpid(child, None);
             match wait_status {
                 // assert that waitpid returned correct status and the pid is the one of the child
                 Ok(WaitStatus::Exited(pid, status)) =>  {
